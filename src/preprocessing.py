@@ -14,6 +14,18 @@ retail_dataset = pd.read_excel(config.RAW_DATA_PATH)
 columns_to_drop = ['employee_name', 'role']
 retail_dataset = retail_dataset.drop(columns=columns_to_drop)
 
+# adding shift type 
+retail_dataset['shift_type'] = pd.to_datetime(retail_dataset['shift_start_time']).dt.hour.apply(
+    lambda h: "Morning" if 6 <= h < 14
+    else "Afternoon" if 14 <= h < 22
+    else "Evening"
+)
+
+# calculate labour cost 
+retail_dataset['labor_cost'] = (
+    retail_dataset['hourly_wage'] * retail_dataset['scheduled_hours']
+)
+
 # split by store 
 # print(retail_dataset['store_state'].value_counts())
 
@@ -27,15 +39,6 @@ large_retail = retail_dataset[retail_dataset['store_state']=='OR']
 # remove store_state
 small_retail = small_retail.drop(columns=['store_state'])
 large_retail = large_retail.drop(columns=['store_state'])
-
-# calculate labour cost 
-small_retail['labor_cost'] = (
-    small_retail['hourly_wage'] * small_retail['scheduled_hours']
-)
-
-large_retail['labor_cost'] = (
-    large_retail['hourly_wage'] * large_retail['scheduled_hours']
-)
 
 # save datasets 
 small_retail.to_csv(config.DATA_SMALL_PATH, index=False)
