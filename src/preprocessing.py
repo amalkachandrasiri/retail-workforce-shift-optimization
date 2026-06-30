@@ -33,12 +33,14 @@ retail_dataset['available_evening'] = (
 # drop shift_type after creating avialiability columns
 retail_dataset = retail_dataset.drop(columns=['shift_type', 'shift_start_time'])
 
+'''
 # creating shift demand - fixed demand throughout the week 
 SHIFT_DEMAND = {
     'Morning': 6,
     'Afternoon': 5,
     'Evening': 4
 }
+'''
 
 # split by store 
 print(retail_dataset['store_state'].value_counts())
