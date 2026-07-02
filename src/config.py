@@ -21,21 +21,42 @@ SMALL_DATASET_EMPLOYEES = 24
 LARGE_DATASET_EMPLOYEES = 65
 
 GA_CONFIG = {
-    "population_size": 50,
-    "crossover_rate": 0.8,
-    "mutation_rate": 0.10,
-    "elite_size": 2,
-    "tournament_size": 3,
-    "max_generations": 200,
-    "early_stop": 30,
-    "max_weekly_hours": 40,
+    'population_size': 50,
+    'crossover_rate': 0.8,
+    'mutation_rate': 0.10,
+    'elite_size': 2,
+    'tournament_size': 3,
+    'max_generations': 200,
+    'early_stop': 30,
+    'max_weekly_hours': 40,
+    
+    'shift_demand_24' : { 
+    'Morning': 6,
+    'Afternoon': 5,
+    'Evening': 4
+    },
 
-    # Shift demand per day
-    "shift_demand": {
-        "Morning": 6,
-        "Afternoon": 5,
-        "Evening": 4
-    }
+    'shift_demand_65' : {
+    'Morning': 15,
+    'Afternoon': 13,
+    'Evening': 10
+    },
+
+    # penalties 
+    'penalties': {
+        'unavailable': 1000,
+        'duplicate_shift': 1000,
+        'weekly_hours': 1000
+    },
+
+    'tournament_size': 3,   
+
+    'crossover_probability': 0.8,
+    'mutation_probability': 0.1,
+
+    'elite_size': 2,
+
+    "generations": 100,
 }
 
 # =========================

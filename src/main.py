@@ -11,12 +11,21 @@ print('=' * 60)
 print('Running GA for 24 Employees')
 print('=' * 60)
 
-result24 = run_ga(
-    employee_df=employees_24,
-    config= config.GA_CONFIG
-)
+'''
+print('available_morning', employees_24['available_morning'].sum())
+print('available_afternoon', employees_24['available_afternoon'].sum())
+print('available_evening', employees_24['available_evening'].sum())
 
-print(result24)
+print('/n  65 dataset')
+
+print('available_morning', employees_65['available_morning'].sum())
+print('available_afternoon', employees_65['available_afternoon'].sum())
+print('available_evening', employees_65['available_evening'].sum())
+'''
+
+result24 = run_ga(employees_24, config.GA_CONFIG, 24)
+
+# print(result24)
 
 print()
 
@@ -24,9 +33,7 @@ print('=' * 60)
 print('Running GA for 65 Employees')
 print('=' * 60)
 
-result65 = run_ga(
-    employee_df = employees_65,
-    config = config.GA_CONFIG
-)
+result65 = run_ga(employees_65, config.GA_CONFIG, 65)
 
-print(result65)
+# print(result65)
+

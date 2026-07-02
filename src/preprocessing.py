@@ -7,40 +7,29 @@ retail_dataset = pd.read_excel(config.RAW_DATA_PATH)
 
 # drop columns which are not required
 columns_to_drop = ['employee_name', 'role', 'shift_date', 'shift_end_time',
-                   'availability_date', 'availability_start_time', 'availability_end_time']
+                   'availability_date', 'shift_start_time', 'availability_end_time']
 retail_dataset = retail_dataset.drop(columns=columns_to_drop)
 
-# adding shift type 
-retail_dataset['shift_type'] = pd.to_datetime(retail_dataset['shift_start_time']).dt.hour.apply(
-    lambda h: 'Morning' if 6 <= h < 14
-    else 'Afternoon' if 14 <= h < 22
-    else 'Evening'
-)
+availability_hour = pd.to_datetime(
+    retail_dataset["availability_start_time"]
+).dt.hour
 
-# creating columns for each shift availability 
-retail_dataset['available_morning'] = (
-    retail_dataset['shift_type'] == 'Morning'
+retail_dataset["available_morning"] = (
+    availability_hour <= 6
 ).astype(int)
 
-retail_dataset['available_afternoon'] = (
-    retail_dataset['shift_type'] == 'Afternoon'
+retail_dataset["available_afternoon"] = (
+    (availability_hour >= 6) &
+    (availability_hour <= 16)
 ).astype(int)
 
-retail_dataset['available_evening'] = (
-    retail_dataset['shift_type'] == 'Evening'
+retail_dataset["available_evening"] = (
+    availability_hour >= 11
 ).astype(int)
 
-# drop shift_type after creating avialiability columns
-retail_dataset = retail_dataset.drop(columns=['shift_type', 'shift_start_time'])
 
-'''
-# creating shift demand - fixed demand throughout the week 
-SHIFT_DEMAND = {
-    'Morning': 6,
-    'Afternoon': 5,
-    'Evening': 4
-}
-'''
+
+retail_dataset.drop(columns=['availability_start_time'])
 
 # split by store 
 print(retail_dataset['store_state'].value_counts())
