@@ -2,6 +2,7 @@ import pandas as pd
 import config 
 
 from ga_optimizer import run_ga
+from mip_optimizer import run_mip
 
 # Load datasets
 employees_24 = pd.read_csv(config.DATA_SMALL_PATH)
@@ -23,7 +24,7 @@ print('available_afternoon', employees_65['available_afternoon'].sum())
 print('available_evening', employees_65['available_evening'].sum())
 '''
 
-result24 = run_ga(employees_24, config.GA_CONFIG, 24)
+# result24 = run_ga(employees_24, config.GA_CONFIG, 24)
 
 # print(result24)
 
@@ -33,7 +34,17 @@ print('=' * 60)
 print('Running GA for 65 Employees')
 print('=' * 60)
 
-result65 = run_ga(employees_65, config.GA_CONFIG, 65)
+# result65 = run_ga(employees_65, config.GA_CONFIG, 65)
 
 # print(result65)
+
+print('=' * 60)
+print('Running MIP for 24 Employees')
+print('=' * 60)
+
+# shift_demand_24 = config['shift_demand_24']
+
+run_mip(employees_24, config.GA_CONFIG, 24)
+
+# run_mip(employees_65, config, config['shift_demand_65'])
 
