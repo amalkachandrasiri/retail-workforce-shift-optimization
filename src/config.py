@@ -7,9 +7,13 @@ from typing import Final
 # =========================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+# data paths 
 RAW_DATA_PATH = BASE_DIR / 'data' / 'raw_data' / 'dataset.xlsx'
 DATA_SMALL_PATH: Final[Path] = BASE_DIR / 'data' / 'processed_data' / 'dataset_small.csv'
 DATA_LARGE_PATH: Final[Path] = BASE_DIR / 'data' / 'processed_data' / 'dataset_large.csv'
+
+# report paths
+GA_CONVERGENCE_REPORT: Final[Path] = BASE_DIR / 'reports' / 'ga_convergence.png'
 
 # Scheduling Parameters
 SCHEDULING_DAYS = 7
