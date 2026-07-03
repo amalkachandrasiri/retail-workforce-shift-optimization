@@ -1,6 +1,7 @@
 import random
 import copy
 import pandas as pd
+import time
 
 # ==========================================
 # 1. CHROMOSOME INITIALIZATION & CREATION
@@ -259,6 +260,8 @@ def run_ga(employee_df, config, dataset_size):
     '''
     Main execution loop running the complete Genetic Algorithm over generations.
     '''
+    start = time.time()
+
     print(f'Total Registered Employees : {len(employee_df)}')
     employee_lookup = create_employee_lookup(employee_df)
 
@@ -268,7 +271,8 @@ def run_ga(employee_df, config, dataset_size):
 
     # Track initial performance
     best_initial = min(population, key=lambda ch: calculate_fitness(ch, employee_lookup, config))
-    print(f'Generation 0 Best Fitness Baseline: {calculate_fitness(best_initial, employee_lookup, config)}')
+    best_fitness_baseline = calculate_fitness(best_initial, employee_lookup, config)
+    print(f'Generation 0 Best Fitness Baseline: {best_fitness_baseline:.2f}')
 
     # Step 2: Main Generational Iteration Loop
     fitness_history = [] 
@@ -283,5 +287,17 @@ def run_ga(employee_df, config, dataset_size):
             print(f'Generation {generation:03d} -> Best Fitness Value: {score:.2f}')   
 
     # Step 3: Extract optimal output individual profile results
-    final_best_chromosome = min(population, key=lambda ch: calculate_fitness(ch, employee_lookup, config))
-    return final_best_chromosome, fitness_history
+    final_best_chromosome = min(population, key=lambda ch: calculate_fitness(ch, employee_lookup, config))    
+    best_fitness = calculate_fitness(final_best_chromosome, employee_lookup, config)
+
+    end = time.time()
+    execution_time = end - start
+
+    return {
+        'schedule': final_best_chromosome,
+        'fitness_history': fitness_history,
+        'best_fitness': best_fitness,
+        'execution_time' : execution_time
+    }
+
+    

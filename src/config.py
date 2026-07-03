@@ -11,6 +11,19 @@ RAW_DATA_PATH = BASE_DIR / 'data' / 'raw_data' / 'dataset.xlsx'
 DATA_SMALL_PATH: Final[Path] = BASE_DIR / 'data' / 'processed_data' / 'dataset_small.csv'
 DATA_LARGE_PATH: Final[Path] = BASE_DIR / 'data' / 'processed_data' / 'dataset_large.csv'
 
+# report paths 
+EMP_ROASTER_24_GA : Final[Path] = BASE_DIR / 'reports' / 'emp_roaster_24_GA.csv'
+EMP_ROASTER_65_GA : Final[Path] = BASE_DIR / 'reports' / 'emp_roaster_65_GA.csv'
+
+EMP_ROASTER_24_MIP : Final[Path] = BASE_DIR / 'reports' / 'emp_roaster_24_MIP.csv'
+EMP_ROASTER_65_MIP : Final[Path] = BASE_DIR / 'reports' / 'emp_roaster_65_MIP.csv'
+
+# graphs paths
+LABOUR_COST_GRAPH : Final[Path] = BASE_DIR / 'reports' / 'labour_cost_comparison.png'
+EXC_TIME_GRAPH : Final[Path] = BASE_DIR / 'reports' / 'execution_time_comparison.png'
+
+
+
 # Scheduling Parameters
 SCHEDULING_DAYS = 7
 SHIFTS = ['Morning', 'Afternoon', 'Evening']

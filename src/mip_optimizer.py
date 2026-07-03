@@ -1,11 +1,12 @@
 from pulp import *
-# import config
+import time
 
 
 def run_mip(employee_df, config, dataset_size):
     '''
     Runs the Mixed Integer Programming workforce scheduler.
     '''
+    start = time.time()
 
     print(f'Employees : {len(employee_df)}')
 
@@ -114,11 +115,14 @@ def run_mip(employee_df, config, dataset_size):
             f"Employee {assignment['employee_id']}"
         )
     
+    end = time.time()
+    execution_time = end - start
 
     return {
     'status': LpStatus[model.status],
     'objective': value(model.objective),
-    'schedule': schedule
+    'schedule': schedule,
+    'execution_time' : execution_time
 }
 
 def extract_schedule(model, x, employees, days, shifts, employee_lookup):
